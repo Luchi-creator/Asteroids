@@ -3,9 +3,15 @@ from constants import *
 from player import *
 
 def main():
+
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    
+
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
+    Player.containers = (updatable,drawable)
+        
     player = Player(SCREEN_WIDTH/2,SCREEN_HEIGHT/2,PLAYER_RADIUS)
 
     clock = pygame.time.Clock()
@@ -18,8 +24,12 @@ def main():
             
         dt = clock.tick(60)/1000
         screen.fill("black")
-        player.draw(screen)
-        player.update(dt)
+        # player.draw(screen)
+        # player.update(dt)
+        for sprite in drawable:
+            sprite.draw(screen)
+        updatable.update(dt)
+
         pygame.display.flip()
 
 
