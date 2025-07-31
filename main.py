@@ -43,10 +43,14 @@ def main():
             sprite.draw(screen)
         updatable.update(dt)
 
-        for i in asteroids:
+        for i in list(asteroids):
             if i.check_collisions(player):
                 print("Game Over!")
                 sys.exit(1)
+            for shot in shots:
+                if i.check_collisions(shot):
+                    i.split()
+                    shot.kill()
 
         pygame.display.flip()
 
